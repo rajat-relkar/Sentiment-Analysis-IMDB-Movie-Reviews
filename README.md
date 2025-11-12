@@ -1,103 +1,108 @@
 # IMDb Movie Review Sentiment Analysis
 
+This project focuses on performing **sentiment analysis** on IMDb movie reviews using a **Long Short-Term Memory (LSTM)** neural network. The goal is to classify each review as **positive** or **negative**, demonstrating how deep learning can capture contextual meaning in natural language.
+
+---
+
 ## Project Overview
-This project aims to analyze IMDb movie reviews and predict whether a review expresses a **positive** or **negative** sentiment. Sentiment analysis is a key Natural Language Processing (NLP) task that helps in understanding public opinion and automating text interpretation.  
 
-Using a combination of **text preprocessing**, **feature extraction techniques**, and **machine learning algorithms**, the model was trained to classify the sentiment of user-submitted IMDb reviews. The project evaluates multiple models and compares their performance using standard classification metrics.
+Customer opinions and online reviews carry immense value for businesses and audiences alike. However, manually processing thousands of reviews is infeasible — hence the need for **automated sentiment classification**.
 
----
-
-## Objectives
-- To preprocess and clean IMDb movie reviews for analysis.  
-- To convert textual data into numerical representations using **TF-IDF**, **Bag-of-Words**, and **Word2Vec** techniques.  
-- To train and evaluate multiple machine learning models for sentiment classification.  
-- To compare models based on **accuracy**, **precision**, **recall**, **F1-score**, and **ROC-AUC** metrics.  
+This project leverages a **Recurrent Neural Network (RNN)** architecture, specifically **LSTM**, to analyze IMDb reviews and predict sentiment. It demonstrates the entire machine learning pipeline — from text preprocessing to model evaluation.
 
 ---
 
-## Key Concepts Used
-- **Natural Language Processing (NLP):** Techniques to process and analyze large amounts of natural language text.  
-- **Feature Engineering:** Using TF-IDF, Count Vectorizer, and Word2Vec embeddings for text representation.  
-- **Machine Learning Algorithms:** Logistic Regression, Naïve Bayes, Support Vector Machine (SVM), and Random Forest.  
-- **Model Evaluation:** Confusion matrix, ROC curve, AUC score, and detailed classification report.  
+## Techniques & Concepts
+
+The following natural language processing (NLP) and deep learning concepts were applied:
+
+- **Text Preprocessing**
+  - Cleaning text (removing punctuation, stopwords, and HTML tags)
+  - Tokenization of words
+  - Padding sequences to ensure uniform input length
+
+- **Word Embeddings**
+  - Tokenizer-based vocabulary creation
+  - Word-to-index mapping for numerical representation of text
+
+- **Deep Learning**
+  - LSTM model trained on preprocessed embeddings for sequential text understanding
 
 ---
 
-## Dataset
-The dataset used is a collection of IMDb movie reviews labeled as **positive** or **negative**. Each review represents a user’s opinion on a particular movie.
+## Model Architecture
 
-Typical dataset structure:
-| Review | Sentiment |
-|---------|------------|
-| "The movie was absolutely wonderful!" | Positive |
-| "I didn’t like the storyline at all." | Negative |
+The LSTM model is designed with simplicity and performance in mind:
 
----
+| Layer | Description |
+|-------|--------------|
+| **Embedding Layer** | Converts integer-encoded words into dense vectors |
+| **LSTM Layer** | Captures contextual dependencies in sequential text |
+| **Dense Layer (ReLU)** | Learns complex representations |
+| **Dense Output Layer (Sigmoid)** | Predicts binary sentiment (positive/negative) |
 
-## Project Workflow
-
-### 1. Importing Libraries
-The project uses essential libraries such as:
-```python
-pandas, numpy, sklearn, nltk, gensim, matplotlib, seaborn
-```
-
-### 2. Data Loading and Exploration
-The IMDb dataset is loaded and explored to check for:
-- Null values or missing reviews  
-- Distribution of sentiments  
-- Basic statistics on review lengths  
-
-### 3. Text Preprocessing
-To prepare the text for modeling:
-- **Lowercasing** all text  
-- **Removing punctuation, stopwords, and special characters**  
-- **Tokenization** of words  
-- **Lemmatization** using WordNetLemmatizer to reduce words to their root form  
-
-### 4. Feature Extraction
-The preprocessed text is converted into numerical vectors using:
-- **TF-IDF Vectorizer:** Weighs words by importance.  
-- **Count Vectorizer:** Simple frequency-based representation.  
-- **Word2Vec (Gensim):** Context-aware embeddings for semantic meaning.
-
-### 5. Model Training
-Multiple machine learning models were trained:
-- **Logistic Regression** – Baseline linear model  
-- **Multinomial Naïve Bayes** – Probabilistic classifier for text  
-- **Linear SVM (Support Vector Machine)** – High-margin classifier for binary tasks  
-- **Random Forest Classifier** – Ensemble learning for robust performance  
-
-### 6. Model Evaluation
-Each model’s performance was measured using:
-- **Accuracy:** Overall correctness of predictions  
-- **Precision & Recall:** Measure of relevance and completeness  
-- **F1-score:** Harmonic mean of precision and recall  
-- **ROC-AUC:** Overall ranking capability across thresholds  
+**Loss Function:** Binary Crossentropy  
+**Optimizer:** Adam  
+**Metrics:** Accuracy, Precision, Recall  
 
 ---
 
-## Results Summary
-| Model | Accuracy | Precision | Recall | F1-Score | AUC |
-|--------|-----------|------------|----------|------------|------|
-| Logistic Regression | High | High | High | High | Excellent |
-| Naïve Bayes | Moderate | Moderate | Moderate | Moderate | Good |
-| Linear SVM | High | High | High | High | Excellent |
-| Random Forest | Competitive | High | High | High | Good |
+## Implementation Steps
+
+1. **Data Loading**  
+   Load the IMDb dataset containing labeled movie reviews.
+
+2. **Preprocessing**  
+   - Clean and tokenize reviews  
+   - Convert text into padded sequences using Keras’ Tokenizer  
+
+3. **Model Building**  
+   - Construct a sequential LSTM model  
+   - Compile using `binary_crossentropy` and the Adam optimizer  
+
+4. **Training**  
+   - Train the model on training data with validation split  
+   - Monitor accuracy and loss over epochs  
+
+5. **Evaluation**  
+   - Evaluate model on test data  
+   - Compute Accuracy, Precision, and Recall metrics  
+
+6. **Prediction**  
+   - Predict sentiment for new custom reviews  
+
+---
+
+## Model Performance
+
+| Metric | Score |
+|---------|--------|
+| **Accuracy** | 0.87 |
+| **Precision** | 0.85 |
+| **Recall** | 0.86 |
+
+These results show that the LSTM network effectively captures contextual sentiment in movie reviews.
+
+---
+
+## Tools & Libraries
+
+This project utilizes the following libraries and frameworks:
+
+- **Python**
+- **TensorFlow / Keras** – Deep learning model building
+- **NLTK** – Text preprocessing and tokenization
+- **NumPy, Pandas** – Data manipulation and cleaning
+- **Matplotlib** – Performance visualization
 
 ---
 
 ## Key Learnings
-- Preprocessing text data significantly improves model performance.  
-- TF-IDF features outperform simple Bag-of-Words in most cases.  
-- Word2Vec embeddings capture contextual meaning but may require more complex models.  
-- Linear models like **Logistic Regression** and **SVM** are strong baselines for sentiment classification tasks.  
+
+- Understanding of text vectorization and embedding techniques  
+- Handling variable-length input sequences using padding  
+- Building and training LSTM models for sequence-based classification  
+- Evaluating models with precision, recall, and accuracy metrics  
 
 ---
 
-## Tools and Technologies
-- **Language:** Python  
-- **Libraries:** scikit-learn, NLTK, Gensim, Matplotlib, Seaborn, Pandas  
-- **Environment:** Jupyter Notebook  
-
----
